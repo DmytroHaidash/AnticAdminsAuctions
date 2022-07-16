@@ -31,5 +31,16 @@ Route::group([
     Route::resource('users', 'UsersController')->except('show')->middleware('role:admin');
     Route::resource('lots', 'LotsController')->except('show');
 
+    Route::group([
+        'as' => 'media.',
+        'prefix' => 'media'
+    ], function () {
+        Route::get('browser', 'MediaController@all');
+        Route::post('browser', 'MediaController@upload');
+        Route::post('upload', 'UploadsController@store')->name('store');
+        Route::post('wysiwyg', 'MediaController@wysiwyg')->name('wysiwyg');
+        Route::delete('{media}', 'UploadsController@destroy')->name('destroy');
+    });
+
 });
 

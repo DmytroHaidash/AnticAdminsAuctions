@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48a0680e06c370157d60724c5e8fa0fc",
+    "content-hash": "f47970d94bb46b50e6f627a6a0125ae2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1043,16 +1043,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.83.18",
+            "version": "v8.83.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "db8188e9cc8359a5c6706fa9d9f55aad7f235077"
+                "reference": "4264f2ee12330bdb1be050998f58ba7271236395"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/db8188e9cc8359a5c6706fa9d9f55aad7f235077",
-                "reference": "db8188e9cc8359a5c6706fa9d9f55aad7f235077",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4264f2ee12330bdb1be050998f58ba7271236395",
+                "reference": "4264f2ee12330bdb1be050998f58ba7271236395",
                 "shasum": ""
             },
             "require": {
@@ -1212,7 +1212,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-06-28T14:30:38+00:00"
+            "time": "2022-07-13T13:23:09+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -5855,6 +5855,56 @@
                 }
             ],
             "time": "2022-05-21T10:24:18+00:00"
+        },
+        {
+            "name": "talanoff/impression-admin",
+            "version": "v1.0.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Talanoff/impression-admin.git",
+                "reference": "b20eec467a8b0e6ddfa449866134581a6bd6e1dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Talanoff/impression-admin/zipball/b20eec467a8b0e6ddfa449866134581a6bd6e1dc",
+                "reference": "b20eec467a8b0e6ddfa449866134581a6bd6e1dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "master-dev": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Talanoff\\ImpressionAdmin\\ImpressionAdminServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Talanoff\\ImpressionAdmin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleh Talanoff",
+                    "email": "talanov.o@gmail.com"
+                }
+            ],
+            "description": "Clean & beauty admin panel",
+            "support": {
+                "issues": "https://github.com/Talanoff/impression-admin/issues",
+                "source": "https://github.com/Talanoff/impression-admin/tree/v1.0.15"
+            },
+            "time": "2019-11-22T13:01:14+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
