@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['page_title' => 'Новый пользователь'])
+@extends('layouts.admin', ['page_title' => $user->name])
 
 @section('content')
 

@@ -20,7 +20,7 @@
                     <td width="20">{{ $user->id }}</td>
                     <td width="40%">{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ __('admin.roles.' . mb_strtolower($user->role)) }}</td>
+                    <td>{{ $user->role }}</td>
                     <td class="nobr">{{ $user->created_at->format('d.m.Y H:i') }}</td>
                     <td width="80" class="nobr">
                         <a href="{{ route('admin.users.edit', $user) }}"

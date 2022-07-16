@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Lots extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+    ];
 }

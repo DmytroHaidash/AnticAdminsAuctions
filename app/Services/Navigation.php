@@ -20,6 +20,11 @@ class Navigation
                 'route' => 'users',
                 'icon' => 'i-user'
             ]),
+            new NavItem([
+                'name' => 'Lots',
+                'route' => 'lots',
+                'icon' => 'i-newspaper'
+            ])
         ];
     }
 }
