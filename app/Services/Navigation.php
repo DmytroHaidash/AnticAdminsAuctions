@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Auth;
 use Talanoff\ImpressionAdmin\Helpers\NavDelimiter;
 use Talanoff\ImpressionAdmin\Helpers\NavItem;
 
@@ -14,17 +15,21 @@ class Navigation
 
     public function backend()
     {
-        return [
-            new NavItem([
-                'name' => 'Users',
-                'route' => 'users',
-                'icon' => 'i-user'
-            ]),
+        $navigation = [
             new NavItem([
                 'name' => 'Lots',
                 'route' => 'lots',
                 'icon' => 'i-newspaper'
             ])
         ];
+        if(Auth::user()->hasRole('admin'))
+        {
+            $navigation[] = new NavItem([
+                'name' => 'Users',
+                'route' => 'users',
+                'icon' => 'i-user'
+            ]);
+        }
+        return $navigation;
     }
 }
