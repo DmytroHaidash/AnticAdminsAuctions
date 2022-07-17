@@ -18,7 +18,10 @@
                     </div>
                 @endif
             </div>
-
+            <div class="mt-4">
+                <multi-uploader
+                        :src="{{ json_encode(\App\Http\Resources\MediaResource::collection($lot->getMedia('uploads'))) }}"></multi-uploader>
+            </div>
 
             <div class="mt-4">
                 <button class="btn btn-primary">Save</button>

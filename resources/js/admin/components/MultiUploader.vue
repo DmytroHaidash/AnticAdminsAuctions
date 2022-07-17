@@ -1,18 +1,33 @@
 <template>
     <div>
-        <div class="row images-list mb-2" v-if="images.length">
-            <div class="col-md-6 col-lg-4" v-for="(image, index) in images" :key="index">
-                <div class="image-preview rounded"
-                     :style="{backgroundImage: `url(${image.preview})`}">
+        <draggable v-model="images" class="row images-list mb-2">
+            <div class="col-md-6 col-lg-3" v-for="(image, index) in images" :key="image.id">
+                <div class="image-preview image-preview--loaded rounded" v-if="!!image.link"
+                     :style="{backgroundImage: `url(${image.link})`}">
+                    <button class="btn btn-danger btn-squire rounded-circle"
+                            @click.prevent="removeImage(index)">
+                        <i class="i-trash"></i>
+                    </button>
+                </div>
+
+                <div class="image-preview image-preview--preloader rounded" v-if="!image.link">
+                    <div class="preloader">
+                        <div class="item-1"></div>
+                        <div class="item-2"></div>
+                        <div class="item-3"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </draggable>
 
         <label class="position-relative image-uploader d-block rounded bg-light p-4">
             <input type="file" accept="image/*" multiple @change="handleImages">
+            <input type="hidden" :name="name ? name+'[]' : 'uploads[]'" :value="image.id"
+                   v-for="(image, index) in images" :key="index">
+            <input type="hidden" name="deletion[]" :value="image" v-for="(image, index) in deletion" :key="index">
 
             <div class="text-center">
-                Загрузить изображения
+                Upload images
                 <div v-if="tooltip">({{ tooltip }})</div>
             </div>
         </label>
@@ -20,30 +35,45 @@
 </template>
 
 <script>
+  import Draggable from 'vuedraggable'
+
   export default {
+    components: {
+      Draggable
+    },
     props: {
+      url: {
+        type: String,
+        default() {
+          return '/media/upload';
+        },
+      },
       src: Array,
+      model: String,
+      modelId: Number | String,
+      tooltip: String,
       name: {
         type: String,
         default() {
-          return 'image';
+          return 'uploads';
         }
       },
-      model: String,
-      modelId: Number | String,
-      collection: String,
-      tooltip: String,
     },
     data() {
       return {
-        images: this.src || []
+        images: this.src || [],
+        deletion: []
       }
     },
     methods: {
-      async uploadFile(formData) {
-        await axios.post('/admin/media/upload', formData)
+      async uploadFile(formData, tempImage) {
+        await axios.post(this.url, formData)
           .then(({data}) => {
-            this.images.push(data);
+            const index = this.images.indexOf(tempImage);
+
+            if (index >= 0) {
+              this.$set(this.images, index, data);
+            }
           });
       },
 
@@ -54,6 +84,7 @@
 
         for (let i = 0; i < event.target.files.length; i++) {
           const formData = new FormData();
+
           let file = fileList[i];
           formData.set('image', file);
 
@@ -62,19 +93,20 @@
             formData.set('model_id', this.modelId);
           }
 
-          if (this.collection) {
-            formData.set('collection', this.collection);
-          }
+          const tempImage = {
+            id: i + '-temp',
+            link: null,
+            name: null,
+            delete: null
+          };
 
-          this.uploadFile(formData);
+          this.images.push(tempImage);
+          this.uploadFile(formData, tempImage);
         }
       },
 
-      removeImage(index, route) {
-        if (!!route) {
-          axios.delete(route);
-        }
-
+      removeImage(index) {
+        this.deletion.push(this.images[index].id);
         this.images.splice(index, 1);
       }
     }
@@ -96,13 +128,28 @@
 
     .image-preview {
         position: relative;
-        background-size: contain;
+        background-size: cover;
         background-position: 50% 50%;
         background-repeat: no-repeat;
         padding-top: 100%;
         overflow: hidden;
 
-        .btn-delete {
+        &--preloader {
+            .preloader {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                animation-delay: 1s;
+            }
+        }
+
+        .btn-danger {
             opacity: 0;
             padding: 0;
             position: absolute;
@@ -121,7 +168,7 @@
         }
 
         &:hover {
-            .btn-delete {
+            .btn-danger {
                 opacity: 1;
                 visibility: visible;
                 transform: scale(1);
@@ -138,7 +185,52 @@
         }
     }
 
-    .material-icons {
-        font-size: 14px;
+    $color-1: #eed968;
+    $color-2: #eead68;
+    $color-3: #ee8c68;
+
+    $color: $color-1, $color-2, $color-3;
+
+    @mixin anim() {
+        @keyframes scale {
+            0% {
+                transform: scale(1);
+            }
+            50%,
+            75% {
+                transform: scale(2.5);
+            }
+            78%, 100% {
+                opacity: 0;
+            }
+        }
     }
+
+    @for $i from 1 through 3 {
+        .item-#{$i} {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: nth($color, $i);
+            margin: 7px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include anim();
+
+            &:before {
+                content: '';
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: nth($color, $i);
+                opacity: 0.7;
+                animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+                animation-delay: 200ms * $i;
+                transition: 0.5s all ease;
+                transform: scale(1);
+            }
+        }
+    }
+
 </style>

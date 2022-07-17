@@ -6,6 +6,7 @@ use App\Models\Lots;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Spatie\MediaLibrary\Models\Media;
 
 class LotsController extends Controller
 {
@@ -22,9 +23,10 @@ class LotsController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        Lots::create([
+        $lot = Lots::create([
             'title' => $request->get('title')
         ]);
+        $this->handleMedia($request, $lot);
         return back()->with('success', 'Lot created.');
     }
 
@@ -38,6 +40,7 @@ class LotsController extends Controller
         $lot->update([
             'title' => $request->get('title'),
         ]);
+        $this->handleMedia($request, $lot);
         return back()->with('success', 'Lot updated.');
     }
 
@@ -46,5 +49,23 @@ class LotsController extends Controller
         $lot->delete();
 
         return redirect(route('admin.lots.index'))->with('success', 'Lot deleted');
+    }
+
+    private function handleMedia(Request $request, Lots $lot): void
+    {
+        if ($request->filled('uploads')) {
+            foreach ($request->input('uploads') as $media) {
+                Media::find($media)->update([
+                    'model_type' => Lots::class,
+                    'model_id' => $lot->id
+                ]);
+            }
+
+            Media::setNewOrder($request->input('uploads'));
+        }
+
+        if ($request->filled('deletion')) {
+            Media::whereIn('id', $request->input('deletion'))->delete();
+        }
     }
 }

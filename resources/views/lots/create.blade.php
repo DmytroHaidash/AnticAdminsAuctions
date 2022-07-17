@@ -3,7 +3,7 @@
 @section('content')
 
     <section>
-        <form action="{{ route('admin.lots.store') }}" method="post">
+        <form action="{{ route('admin.lots.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -18,6 +18,9 @@
                 @endif
             </div>
 
+            <div class="mt-4">
+                <multi-uploader></multi-uploader>
+            </div>
 
             <div class="mt-4">
                 <button class="btn btn-primary">Save</button>
