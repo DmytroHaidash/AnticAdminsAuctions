@@ -16,7 +16,19 @@ class CreateLotsTable extends Migration
         Schema::create('lots', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('description')->nullable();
+            $table->integer('num')->nullable();
+            $table->string('artist')->nullable();
+            $table->decimal('low_estimate', '8', '2');
+            $table->decimal('high_estimate', '8', '2');
+            $table->decimal('starting_price', '8', '2');
+            $table->integer('category_id')->nullable();
+            $table->integer('user_id');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
