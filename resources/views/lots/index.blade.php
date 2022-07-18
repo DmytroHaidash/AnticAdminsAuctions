@@ -1,8 +1,14 @@
 @extends('layouts.admin', ['page_title' => 'Lots'])
 
 @section('content')
-    <p>Lots</p>
     <section>
+        <div class="my-4">
+            <p>Lots</p>
+            <a href="{{ route('admin.lots.create') }}" class="btn btn-primary">
+                Create lot
+            </a>
+        </div>
+        <form action=""></form>
         <table class="table">
             <thead class="small">
             <tr>
@@ -35,12 +41,6 @@
                 </tr>
             @endforelse
         </table>
-
-        <div class="my-4">
-            <a href="{{ route('admin.lots.create') }}" class="btn btn-primary">
-                Create lot
-            </a>
-        </div>
 
         @include('partials.admin.restore-delete')
 

@@ -1,8 +1,23 @@
 @extends('layouts.admin', ['page_title' => 'Categories'])
 
 @section('content')
-    <p>Categories</p>
+
     <section>
+        <div class="my-4">
+            <p>Categories</p>
+            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
+                Create category
+            </a>
+        </div>
+        <form class="row mb-4">
+            <div class="col pr-0">
+                <input type="search" name="search" class="form-control" placeholder="search">
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary">Find</button>
+            </div>
+        </form>
         <table class="table">
             <thead class="small">
             <tr>
@@ -35,12 +50,6 @@
                 </tr>
             @endforelse
         </table>
-
-        <div class="my-4">
-            <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
-                Create category
-            </a>
-        </div>
 
         @include('partials.admin.restore-delete')
 

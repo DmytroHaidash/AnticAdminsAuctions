@@ -3,6 +3,13 @@
 @section('content')
 
     <section>
+        <div class="my-4 justify-content-center">
+            <p>Users</p>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+                Create user
+            </a>
+        </div>
+
         <table class="table">
             <thead class="small">
             <tr>
@@ -38,12 +45,6 @@
                 </tr>
             @endforeach
         </table>
-
-        <div class="my-4">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
-                Create user
-            </a>
-        </div>
 
         @include('partials.admin.restore-delete')
 
