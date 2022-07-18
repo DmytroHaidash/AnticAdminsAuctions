@@ -38,23 +38,27 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="num">Num</label>
-                        <input type="number" min="0" step="1" name="num" class="form-control {{ $errors->has('num') ? ' is-invalid' : '' }}">
+                        <input type="number" min="0" step="1" name="num" value="{{ old('num') }}"
+                               class="form-control {{ $errors->has('num') ? ' is-invalid' : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="low_estimate">Low estimate</label>
-                        <input type="number" min="0" step="1" name="low_estimate" class="form-control {{ $errors->has('low_estimate') ? ' is-invalid' : '' }}">
+                        <input type="number" min="0" step="1" name="low_estimate" value="{{ old('low_estimate') }}"
+                               class="form-control {{ $errors->has('low_estimate') ? ' is-invalid' : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="high_estimate">High estimate</label>
-                        <input type="number" min="0" step="1" name="high_estimate" class="form-control {{ $errors->has('high_estimate') ? ' is-invalid' : '' }}">
+                        <input type="number" min="0" step="1" name="high_estimate" value="{{ old('high_estimate') }}"
+                               class="form-control {{ $errors->has('high_estimate') ? ' is-invalid' : '' }}">
                     </div>
                     <div class="form-group">
                         <label for="starting_price">Starting price</label>
-                        <input type="number" min="0" step="1" name="starting_price" class="form-control {{ $errors->has('starting_price') ? ' is-invalid' : '' }}">
+                        <input type="number" min="0" step="1" name="starting_price" value="{{ old('starting_price') }}"
+                               class="form-control {{ $errors->has('starting_price') ? ' is-invalid' : '' }}">
                     </div>
                     <div class="form-group">
-                        <label for="author">Category <small>(not required)</small></label>
-                        <select name="author_id" id="author" class="form-control">
+                        <label for="category">Category <small>(not required)</small></label>
+                        <select name="category_id" id="category" class="form-control">
                             <option value="">----</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
