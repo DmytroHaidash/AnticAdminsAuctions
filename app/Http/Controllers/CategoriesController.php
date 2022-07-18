@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriesRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class CategoriesController extends Controller
         return view('categories.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(CategoriesRequest $request): RedirectResponse
     {
         Category::create([
             'title' => $request->get('title'),
@@ -33,13 +34,13 @@ class CategoriesController extends Controller
         return view('categories.edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(CategoriesRequest $request, Category $category): RedirectResponse
     {
         $category->update($request->only('title'));
         return redirect()->route('admin.categories.index')->with('message', 'Category updated');
     }
 
-    public function destroy(Category $category):RedirectResponse
+    public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
         return redirect()->back()->with('message', 'Category deleted');

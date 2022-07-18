@@ -9,8 +9,14 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 
 /**
  * @property string $title
- * @property text $description
- * @property
+ * @property string $description
+ * @property integer $num
+ * @property string $artist
+ * @property float $low_estimate
+ * @property float $high_estimate
+ * @property float $starting_price
+ * @property integer $user_id
+ * @property integer $category_id
  */
 class Lots extends Model implements HasMedia
 {
@@ -23,7 +29,6 @@ class Lots extends Model implements HasMedia
         'artist',
         'low_estimate',
         'high_estimate',
-        'category',
         'starting_price',
         'category_id',
         'user_id'

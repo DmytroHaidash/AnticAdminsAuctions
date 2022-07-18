@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LotsRequest;
+use App\Models\Category;
 use App\Models\Lots;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Spatie\MediaLibrary\Models\Media;
 
@@ -18,13 +21,22 @@ class LotsController extends Controller
 
     public function create(): View
     {
-        return view('lots.create');
+        $categories = Category::latest()->get();
+        return view('lots.create', compact('categories'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(LotsRequest $request): RedirectResponse
     {
         $lot = Lots::create([
-            'title' => $request->get('title')
+            'title' => $request->get('title'),
+            'user_id' => Auth::user()->id,
+            'description' => $request->get('description'),
+            'artist' => $request->get('artist'),
+            'num' => $request->get('num'),
+            'category_id' => $request->get('category_id'),
+            'low_estimate' => $request->get('low_estimate'),
+            'high_estimate' => $request->get('high_estimate'),
+            'starting_price' => $request->get('starting_price'),
         ]);
         $this->handleMedia($request, $lot);
         return back()->with('success', 'Lot created.');
@@ -39,6 +51,14 @@ class LotsController extends Controller
     {
         $lot->update([
             'title' => $request->get('title'),
+            'account_id' => Auth::user()->id,
+            'description' => $request->get('description'),
+            'artist' => $request->get('artist'),
+            'num' => $request->get('num'),
+            'category_id' => $request->get('category_id'),
+            'low_estimate' => $request->get('low_estimate'),
+            'high_estimate' => $request->get('high_estimate'),
+            'starting_price' => $request->get('starting_price'),
         ]);
         $this->handleMedia($request, $lot);
         return back()->with('success', 'Lot updated.');
