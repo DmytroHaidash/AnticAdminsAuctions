@@ -25,13 +25,13 @@ class LotsRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'description' => 'text|nullable',
+            'description' => 'string|nullable',
             'artist' => 'string|nullable',
-            'num' => 'required|number',
-            'low_estimate' => 'required',
-            'high_estimate' => 'required',
-            'starting_price' => 'required',
-            'category_id' => 'int|nullable'
+            'num' => 'required|numeric',
+            'low_estimate' => 'required|numeric',
+            'high_estimate' => 'required|numeric',
+            'starting_price' => 'required|numeric',
+            'category_id' => 'numeric|nullable'
         ];
     }
 }
