@@ -11,7 +11,7 @@ class CategoriesController extends Controller
 {
     public function index(): View
     {
-        $categories = Category::latest()->get();
+        $categories = Category::latest()->paginate(20);
         return view('categories.index', compact('categories'));
     }
 
@@ -25,7 +25,7 @@ class CategoriesController extends Controller
         Category::create([
             'title' => $request->get('title'),
         ]);
-        return redirect()->route('admin.category.index')->with('message', 'Category created');
+        return redirect()->route('admin.categories.index')->with('message', 'Category created');
     }
 
     public function edit(Category $category): View
@@ -36,12 +36,12 @@ class CategoriesController extends Controller
     public function update(Request $request, Category $category): RedirectResponse
     {
         $category->update($request->only('title'));
-        return redirect()->route('admin.category.idex')->with('message', 'Category updated');
+        return redirect()->route('admin.categories.index')->with('message', 'Category updated');
     }
 
     public function destroy(Category $category):RedirectResponse
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('message', 'Category deleted');
+        return redirect()->back()->with('message', 'Category deleted');
     }
 }

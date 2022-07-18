@@ -22,8 +22,8 @@ class CreateLotsTable extends Migration
             $table->decimal('low_estimate', '8', '2');
             $table->decimal('high_estimate', '8', '2');
             $table->decimal('starting_price', '8', '2');
-            $table->integer('category_id')->nullable();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');

@@ -20,6 +20,11 @@ class Navigation
                 'name' => 'Lots',
                 'route' => 'lots',
                 'icon' => 'i-newspaper'
+            ]),
+            new NavItem([
+                'name' => 'Categories',
+                'route' => 'categories',
+                'icon' => 'i-floppy'
             ])
         ];
         if(Auth::user()->hasRole('admin'))
