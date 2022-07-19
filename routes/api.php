@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/lots', [\App\Http\Controllers\LotsController::class, 'getLots']);
+Route::post('/lots', [\App\Http\Controllers\LotsController::class, 'getLots']);

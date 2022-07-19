@@ -24,13 +24,13 @@
                              class="mb-0"></wysiwyg>
 
                     <div class="form-group mt-4">
-                        <label for="artist">Artist</label>
-                        <input id="artist" type="text" name="artist"
-                               class="form-control{{ $errors->has('artist') ? ' is-invalid' : '' }}"
-                               value="{{ old('artist') }}" required>
-                        @if($errors->has('artist'))
+                        <label for="author">Author</label>
+                        <input id="author" type="text" name="author"
+                               class="form-control{{ $errors->has('author') ? ' is-invalid' : '' }}"
+                               value="{{ old('author') }}" required>
+                        @if($errors->has('author'))
                             <div class="mt-1 text-danger">
-                                {{ $errors->first('artist') }}
+                                {{ $errors->first('author') }}
                             </div>
                         @endif
                     </div>

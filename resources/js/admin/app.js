@@ -8,6 +8,7 @@ import Options from  './components/Options';
 import MultiUploader from './components/MultiUploader';
 import SingleUploader from './components/SingleUploader';
 import PasswordChange from './components/PasswordChange';
+import LotsPage from  './components/LotsPage';
 
 Vue.use(VModal);
 
@@ -19,7 +20,8 @@ new Vue({
     Options,
     MultiUploader,
     SingleUploader,
-    PasswordChange
+    PasswordChange,
+    LotsPage
   },
   mounted() {
     require('./modules/notifications');

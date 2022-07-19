@@ -18,7 +18,7 @@ class CreateLotsTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('num')->nullable();
-            $table->string('artist')->nullable();
+            $table->string('author')->nullable();
             $table->decimal('low_estimate', '8', '2');
             $table->decimal('high_estimate', '8', '2');
             $table->decimal('starting_price', '8', '2');

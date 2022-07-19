@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LotsRequest;
+use App\Http\Resources\LotsPaginatedResource;
 use App\Models\Category;
 use App\Models\Lots;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +16,9 @@ use Spatie\MediaLibrary\Models\Media;
 
 class LotsController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $lots = Lots::latest()->paginate(20);
-        return view('lots.index', compact('lots'));
+        return view('lots.index');
     }
 
     public function create(): View
@@ -31,7 +33,7 @@ class LotsController extends Controller
             'title' => $request->get('title'),
             'user_id' => Auth::user()->id,
             'description' => $request->get('description'),
-            'artist' => $request->get('artist'),
+            'author' => $request->get('author'),
             'num' => $request->get('num'),
             'category_id' => $request->get('category_id'),
             'low_estimate' => $request->get('low_estimate'),
@@ -53,7 +55,7 @@ class LotsController extends Controller
             'title' => $request->get('title'),
             'account_id' => Auth::user()->id,
             'description' => $request->get('description'),
-            'artist' => $request->get('artist'),
+            'author' => $request->get('author'),
             'num' => $request->get('num'),
             'category_id' => $request->get('category_id'),
             'low_estimate' => $request->get('low_estimate'),
@@ -87,5 +89,22 @@ class LotsController extends Controller
         if ($request->filled('deletion')) {
             Media::whereIn('id', $request->input('deletion'))->delete();
         }
+    }
+
+    public function getLots(Request $request): JsonResponse
+    {
+        $search = $request->get('search');
+        $sort = $request->get('sort');
+        $order = $request->get('order');
+        $lots = Lots::query()
+            ->select('lots.*', 'categories.title as category')
+            ->when($search, function (Builder $builder) use ($search) {
+                $builder->where('lots.title', 'like', '%' . $search . '%');
+            })
+            ->orderBy('lots.' .$sort, $order)
+            ->leftJoin('categories', 'categories.id', '=', 'lots.category_id')
+            ->paginate(20);
+
+        return response()->json(new LotsPaginatedResource($lots));
     }
 }
