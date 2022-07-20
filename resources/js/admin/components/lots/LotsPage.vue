@@ -12,6 +12,7 @@
         <table class="table">
             <thead class="small">
             <tr>
+                <th width="20"></th>
                 <th @click.prevent="sorting('id')" class="ids">
                     <div class="d-inline-flex">
                         Id
@@ -97,6 +98,9 @@
             </tr>
             </thead>
             <tr v-for="(lot, index) in lots">
+                <td width="20">
+                    <input :id="'select_'+index" type="checkbox" :checked="selectedItems.includes(lot.id)" @change="addSelect(lot.id)">
+                </td>
                 <td class="ids">{{ lot.id }}</td>
                 <td>{{ lot.title }}</td>
                 <td>{{ lot.author }}</td>
@@ -119,9 +123,9 @@
             </tr>
         </table>
         <div class="d-flex h-10 justify-content-center align-items-center">
-            <button class="btn btn-primary mr-4" @click.prevent="previousPage()" :disabled="!previous">Previous page</button>
+            <button class="btn btn-primary mr-4" @click="previousPage()" :disabled="!previous">Previous page</button>
             <p class="mr-4 mt-3">{{currentPage}} / {{lastPage}}</p>
-            <button class="btn btn-primary" @click.prevent="nextPage()" :disabled="!next">Next page</button>
+            <button class="btn btn-primary" @click="nextPage()" :disabled="!next">Next page</button>
         </div>
     </div>
 </template>
@@ -141,13 +145,14 @@
         icon: '#asc',
         currentPage: 1,
         lastPage: 1,
+        selectedItems: [],
       }
     },
     created() {
-      this.getAllLots(this.url);
+      this.getAllLots();
     },
     methods: {
-      getAllLots(url) {
+      getLots(url) {
         axios
           .post(url, {sort: this.sort, order: this.order, search: this.search})
           .then(({data}) => {
@@ -158,6 +163,9 @@
             this.currentPage = data.current;
           });
       },
+      getAllLots() {
+        this.getLots(this.url);
+      },
       sorting(sort) {
         if (this.sort === sort) {
           this.order = this.order === 'desc' ? 'asc' : 'desc';
@@ -166,7 +174,7 @@
           this.order = 'asc';
         }
         this.getSortSvg();
-        this.getAllLots(this.url)
+        this.getLots(this.url)
       },
       delete(link) {
         confirm('Sure?').then(result => {
@@ -178,10 +186,23 @@
         this.icon = '#' + this.order;
       },
       nextPage() {
-        this.getAllLots(this.next);
+        console.log('click');
+        this.getLots(this.next);
       },
       previousPage() {
-        this.getAllLots(this.previous);
+        this.getLots(this.previous);
+      },
+      addSelect(id) {
+        let index = this.selectedItems.indexOf(id);
+        if (index !== -1) {
+          this.selectedItems.splice(index, 1);
+        } else {
+          this.selectedItems.push(id);
+        }
+      },
+      isSelected(id) {
+        this.selectedItems.includes(id);
+        console.log()
       }
     }
   }

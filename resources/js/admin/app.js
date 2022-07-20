@@ -8,7 +8,7 @@ import Options from  './components/Options';
 import MultiUploader from './components/MultiUploader';
 import SingleUploader from './components/SingleUploader';
 import PasswordChange from './components/PasswordChange';
-import LotsPage from  './components/LotsPage';
+import LotsPage from './components/lots/LotsPage';
 
 Vue.use(VModal);
 
