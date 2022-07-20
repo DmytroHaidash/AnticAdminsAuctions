@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
@@ -24,10 +25,9 @@ Route::group([
     'as' => 'admin.',
     'namespace' => '\App\Http\Controllers'
 ], function () {
-//    Route::get('/', function () {
-//        return redirect()->route('admin.shops.index');
-//    });
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', function () {
+        return redirect()->route('admin.lots.index');
+    });
     Route::resource('users', 'UsersController')->except('show')->middleware('role:admin');
     Route::resource('lots', 'LotsController')->except('show');
     Route::resource('categories', 'CategoriesController')->except('show');
@@ -43,5 +43,11 @@ Route::group([
         Route::delete('{media}', 'UploadsController@destroy')->name('destroy');
     });
 
+    Route::group([
+        'as' => 'export.',
+        'prefix' => 'export'
+    ], function () {
+        Route::post('first', [ExportController::class, 'exportOne']);
+    });
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AllLotsRequest;
 use App\Http\Requests\LotsRequest;
 use App\Http\Resources\LotsPaginatedResource;
 use App\Models\Category;
@@ -16,7 +17,7 @@ use Spatie\MediaLibrary\Models\Media;
 
 class LotsController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
         return view('lots.index');
     }
@@ -91,7 +92,7 @@ class LotsController extends Controller
         }
     }
 
-    public function getLots(Request $request): JsonResponse
+    public function getLots(AllLotsRequest $request): JsonResponse
     {
         $search = $request->get('search');
         $sort = $request->get('sort');
@@ -101,7 +102,7 @@ class LotsController extends Controller
             ->when($search, function (Builder $builder) use ($search) {
                 $builder->where('lots.title', 'like', '%' . $search . '%');
             })
-            ->orderBy('lots.' .$sort, $order)
+            ->orderBy('lots.' . $sort, $order)
             ->leftJoin('categories', 'categories.id', '=', 'lots.category_id')
             ->paginate(20);
 

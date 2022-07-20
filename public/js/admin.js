@@ -2924,6 +2924,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LotsPage",
 
@@ -3012,6 +3016,23 @@ __webpack_require__.r(__webpack_exports__);
     isSelected(id) {
       this.selectedItems.includes(id);
       console.log();
+    },
+
+    async getExport(exportLink) {
+      await axios.post(exportLink, {
+        ids: this.selectedItems,
+        sort: this.sort,
+        order: this.order,
+        search: this.search
+      }).then(({
+        data
+      }) => {
+        console.log(data);
+      });
+    },
+
+    getExportOne() {
+      this.getExport('/export/first');
     }
 
   }
@@ -36558,6 +36579,22 @@ var render = function() {
               [_vm._v("Find")]
             )
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-primary",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.getExportOne()
+                }
+              }
+            },
+            [_vm._v("Export One")]
+          )
         ]),
         _vm._v(" "),
         _c(

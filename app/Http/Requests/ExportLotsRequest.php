@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetLogsRequest extends FormRequest
+class ExportLotsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class GetLogsRequest extends FormRequest
     public function rules()
     {
         return [
-            'search' => 'required|string|nullable',
+            'ids' => 'array|nullable',
+            'search' => 'string|nullable',
             'sort' => 'required|string',
             'order' => 'required|in:asc,desc'
         ];

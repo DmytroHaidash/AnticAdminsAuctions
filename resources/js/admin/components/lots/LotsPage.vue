@@ -8,6 +8,10 @@
             <div class="col-auto">
                 <button class="btn btn-primary" @click.prevent="getAllLots(url)">Find</button>
             </div>
+
+        </div>
+        <div>
+            <button class="btn btn-outline-primary" @click.prevent="getExportOne()">Export One</button>
         </div>
         <table class="table">
             <thead class="small">
@@ -203,7 +207,18 @@
       isSelected(id) {
         this.selectedItems.includes(id);
         console.log()
+      },
+      async getExport(exportLink) {
+        await axios
+          .post(exportLink, {ids: this.selectedItems, sort: this.sort, order: this.order, search: this.search})
+          .then(({data}) => {
+            console.log(data);
+          });
+      },
+      getExportOne() {
+        this.getExport('/export/first');
       }
+
     }
   }
 </script>
