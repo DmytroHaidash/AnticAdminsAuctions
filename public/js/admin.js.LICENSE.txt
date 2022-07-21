@@ -1,0 +1,36 @@
+/*!
+    * tiptap v1.32.1
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-commands v1.17.0
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-extensions v1.35.1
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-utils v1.13.0
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+ * Vue.js v2.7.4
+ * (c) 2014-2022 Evan You
+ * Released under the MIT License.
+ */
+
+/**!
+ * Sortable 1.10.2
+ * @author	RubaXa   <trash@rubaxa.org>
+ * @author	owenm    <owen23355@gmail.com>
+ * @license MIT
+ */
