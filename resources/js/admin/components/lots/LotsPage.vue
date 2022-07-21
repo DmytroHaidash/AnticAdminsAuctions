@@ -10,7 +10,7 @@
             </div>
 
         </div>
-        <div>
+        <div class="mb-4">
             <button class="btn btn-outline-primary" @click.prevent="getExportOne()">Export One</button>
         </div>
         <table class="table">
@@ -210,9 +210,18 @@
       },
       async getExport(exportLink) {
         await axios
-          .post(exportLink, {ids: this.selectedItems, sort: this.sort, order: this.order, search: this.search})
-          .then(({data}) => {
-            console.log(data);
+          .post(exportLink, {ids: this.selectedItems, sort: this.sort, order: this.order, search: this.search}, {responseType: 'blob'})
+          .then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            let fileLink = document.createElement('a');
+            fileLink.href = url;
+            fileLink.setAttribute('download', 'export.xlsx');
+
+            document.body.appendChild(fileLink);
+
+            fileLink.click();
+          }).catch(error => {
+            console.log(error);
           });
       },
       getExportOne() {

@@ -3024,10 +3024,17 @@ __webpack_require__.r(__webpack_exports__);
         sort: this.sort,
         order: this.order,
         search: this.search
-      }).then(({
-        data
-      }) => {
-        console.log(data);
+      }, {
+        responseType: 'blob'
+      }).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        let fileLink = document.createElement('a');
+        fileLink.href = url;
+        fileLink.setAttribute('download', 'export.xlsx');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      }).catch(error => {
+        console.log(error);
       });
     },
 
@@ -36581,7 +36588,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", [
+        _c("div", { staticClass: "mb-4" }, [
           _c(
             "button",
             {

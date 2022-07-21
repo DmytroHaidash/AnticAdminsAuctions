@@ -2,7 +2,7 @@
     <thead>
     <tr>
         @foreach($columns as $column)
-            <th>{{$column->title}}</th>
+            <th>{{$column['column']}}</th>
         @endforeach
     </tr>
     </thead>
@@ -10,7 +10,7 @@
     @foreach($lots as $lot)
         <tr>
             @foreach($columns as $column)
-                <td>{{ $lot[$column->field] }}</td>
+                <td>{{ isset($column['field']) ? $lot[$column['field']] : ''  }}</td>
             @endforeach
         </tr>
     @endforeach
