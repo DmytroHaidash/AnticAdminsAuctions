@@ -18,7 +18,7 @@ class CategoriesSeeder extends Seeder
         $faker = Factory::create();
 
         for ($i = 6; $i; $i--) {
-            Category::create(['title' => ucfirst($faker->words(rand(2, 3), true))]);
+            Category::create(['title' => ucfirst($faker->words(rand(2, 3), true)), 'user_id' => 1]);
         }
     }
 }

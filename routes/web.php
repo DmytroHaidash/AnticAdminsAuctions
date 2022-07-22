@@ -31,6 +31,7 @@ Route::group([
     Route::resource('users', 'UsersController')->except('show')->middleware('role:admin');
     Route::resource('lots', 'LotsController')->except('show');
     Route::resource('categories', 'CategoriesController')->except('show');
+    Route::resource('consigners', 'ConsignersController')-> except('show');
 
     Route::group([
         'as' => 'media.',

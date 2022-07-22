@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CategoriesController extends Controller
@@ -31,6 +32,7 @@ class CategoriesController extends Controller
     {
         Category::create([
             'title' => $request->get('title'),
+            'user_id' => Auth::user()->id,
         ]);
         return redirect()->route('admin.categories.index')->with('message', 'Category created');
     }

@@ -25,6 +25,11 @@ class Navigation
                 'name' => 'Categories',
                 'route' => 'categories',
                 'icon' => 'i-floppy'
+            ]),
+            new NavItem([
+                'name' => 'Consigners',
+                'route' => 'consigners',
+                'icon' => 'i-man'
             ])
         ];
         if(Auth::user()->hasRole('admin'))
