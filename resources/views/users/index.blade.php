@@ -15,8 +15,15 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Surname</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Post code</th>
+                <th>Phone</th>
+                <th>Comission</th>
                 <th>Created</th>
                 <th></th>
             </tr>
@@ -25,9 +32,16 @@
             @foreach($users as $user)
                 <tr>
                     <td width="20">{{ $user->id }}</td>
-                    <td width="40%">{{ $user->name }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->surname }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
+                    <td>{{ $user->country }}</td>
+                    <td>{{ $user->city }}</td>
+                    <td>{{ $user->address }}</td>
+                    <td>{{ $user->post_code }}</td>
+                    <td>{{ $user->phone }}</td>
+                    <td>{{ $user->comission }}</td>
                     <td class="nobr">{{ $user->created_at->format('d.m.Y H:i') }}</td>
                     <td width="80" class="nobr">
                         <a href="{{ route('admin.users.edit', $user) }}"

@@ -3,10 +3,10 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+import Mask from './mask';
 //require('./bootstrap');
 
-//window.Vue = require('vue').default;
+window.Vue = require('vue').default;
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,6 +27,7 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: '#app',
-// });
+Vue.directive('mask', Mask);
+const app = new Vue({
+    el: '#app',
+});

@@ -17,9 +17,15 @@ class UsersTable extends Seeder
     {
         User::create([
             'name' => 'Admin',
+            'surname' => 'Admin',
             'email' => 'admin@app.com',
             'password' => Hash::make('password'),
-            'role' => User::ADMIN_ROLE
+            'role' => User::ADMIN_ROLE,
+            'country' => 'Ukraine',
+            'city' => 'Zp',
+            'address' => 'add',
+            'post_code' => '12345',
+            'phone' => '380681231234'
         ]);
     }
 }

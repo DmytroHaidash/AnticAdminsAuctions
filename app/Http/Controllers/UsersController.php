@@ -34,7 +34,7 @@ class UsersController extends Controller
      */
     public function store(UserSavingRequest $request): RedirectResponse
     {
-        $attrs = $request->only('name', 'email', 'role');
+        $attrs = $request->only('name', 'surname', 'email', 'role', 'country', 'city', 'address', 'post_code', 'phone', 'comission');
         $attrs['password'] = Hash::make($request->input('password'));
 
         $user = User::create($attrs);
@@ -58,7 +58,7 @@ class UsersController extends Controller
      */
     public function update(UserSavingRequest $request, User $user): RedirectResponse
     {
-        $user->fill($request->only('name', 'role'));
+        $user->fill($request->only('name', 'surname', 'email', 'role', 'country', 'city', 'address', 'post_code', 'phone', 'comission'));
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
