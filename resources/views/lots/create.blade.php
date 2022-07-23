@@ -66,6 +66,16 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="consigner_id">Consigner <small>(not required)</small></label>
+                        <select name="consigner_id" id="consigner_id" class="form-control">
+                            <option value="">----</option>
+                            @foreach($consigners as $consigner)
+                                <option value="{{ $consigner->id }}">{{ $consigner->name }} {{ $consigner->surname }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="mt-4">
                         <multi-uploader></multi-uploader>
                     </div>
