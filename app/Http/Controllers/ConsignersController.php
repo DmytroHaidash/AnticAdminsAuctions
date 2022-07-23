@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consigner;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

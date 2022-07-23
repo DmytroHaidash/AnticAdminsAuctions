@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserSavingRequest;
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\View\View;
 
@@ -14,9 +16,17 @@ class UsersController extends Controller
     /**
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = User::latest()->paginate(20);
+        $search = $request->get('search') ?? '';
+        $users = User::query()
+            ->when($search, function (Builder $builder) use ($search) {
+                $builder->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('surname', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->paginate(20);
         return view('users.index', compact('users'));
     }
 
@@ -66,7 +76,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return back()->with('success','User updated.');
+        return back()->with('success', 'User updated.');
     }
 
     /**

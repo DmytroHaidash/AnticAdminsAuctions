@@ -6,6 +6,7 @@ use App\Http\Requests\AllLotsRequest;
 use App\Http\Requests\LotsRequest;
 use App\Http\Resources\LotsPaginatedResource;
 use App\Models\Category;
+use App\Models\Consigner;
 use App\Models\Lots;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -24,8 +25,9 @@ class LotsController extends Controller
 
     public function create(): View
     {
-        $categories = Category::latest()->get();
-        return view('lots.create', compact('categories'));
+        $categories = Category::where('user_id', Auth::user()->id)->latest()->get();
+        $consigners = Consigner::where('user_id', Auth::user()->id)->latest()->get();
+        return view('lots.create', compact('categories', 'consigners'));
     }
 
     public function store(LotsRequest $request): RedirectResponse
@@ -47,7 +49,9 @@ class LotsController extends Controller
 
     public function edit(Lots $lot): View
     {
-        return view('lots.edit', compact('lot'));
+        $categories = Category::where('user_id', Auth::user()->id)->latest()->get();
+        $consigners = Consigner::where('user_id', Auth::user()->id)->latest()->get();
+        return view('lots.edit', compact('lot', 'consigners', 'categories'));
     }
 
     public function update(Request $request, Lots $lot): RedirectResponse

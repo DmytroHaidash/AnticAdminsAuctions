@@ -9,7 +9,15 @@
                 Create user
             </a>
         </div>
+        <form class="row mb-4">
+            <div class="col pr-0">
+                <input type="search" name="search" class="form-control" placeholder="search">
+            </div>
 
+            <div class="col-auto">
+                <button class="btn btn-primary">Find</button>
+            </div>
+        </form>
         <table class="table">
             <thead class="small">
             <tr>
