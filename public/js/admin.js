@@ -2928,6 +2928,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LotsPage",
 
@@ -36695,7 +36715,61 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("th", [_vm._v("Category")]),
+                _c(
+                  "th",
+                  {
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.sorting("category")
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "d-inline-flex" }, [
+                      _vm._v(
+                        "\n                    Category\n                    "
+                      ),
+                      _vm.sort === "category"
+                        ? _c("div", { staticClass: "ml-2" }, [
+                            _c(
+                              "svg",
+                              { attrs: { width: "16", height: "16" } },
+                              [_c("use", { attrs: { href: _vm.icon } })]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.sorting("consigner")
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "d-inline-flex" }, [
+                      _vm._v(
+                        "\n                    Consigner\n                    "
+                      ),
+                      _vm.sort === "consigner"
+                        ? _c("div", { staticClass: "ml-2" }, [
+                            _c(
+                              "svg",
+                              { attrs: { width: "16", height: "16" } },
+                              [_c("use", { attrs: { href: _vm.icon } })]
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "th",
@@ -36860,6 +36934,8 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(lot.author))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(lot.category))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(lot.consigner))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(lot.num))]),
                 _vm._v(" "),

@@ -31,7 +31,10 @@ class LotsRequest extends FormRequest
             'low_estimate' => 'required|numeric',
             'high_estimate' => 'required|numeric',
             'starting_price' => 'required|numeric',
-            'category_id' => 'numeric|nullable'
+            'category_id' => 'numeric|nullable',
+            'consigner_id' => 'numeric|nullable',
+            'status' => 'required',
+            'buy_status' => 'required',
         ];
     }
 }

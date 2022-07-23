@@ -47,7 +47,26 @@
                         </div>
                     </div>
                 </th>
-                <th>Category</th>
+                <th @click.prevent="sorting('category')">
+                    <div class="d-inline-flex">
+                        Category
+                        <div v-if="sort === 'category'" class="ml-2">
+                            <svg width="16" height="16">
+                                <use :href="icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </th>
+                <th @click.prevent="sorting('consigner')">
+                    <div class="d-inline-flex">
+                        Consigner
+                        <div v-if="sort === 'consigner'" class="ml-2">
+                            <svg width="16" height="16">
+                                <use :href="icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </th>
                 <th @click.prevent="sorting('num')">
                     <div class="d-inline-flex">
                         Num
@@ -109,6 +128,7 @@
                 <td>{{ lot.title }}</td>
                 <td>{{ lot.author }}</td>
                 <td>{{ lot.category }}</td>
+                <td>{{ lot.consigner}}</td>
                 <td>{{ lot.num }}</td>
                 <td>{{ lot.low_estimate }}</td>
                 <td>{{ lot.high_estimate }}</td>

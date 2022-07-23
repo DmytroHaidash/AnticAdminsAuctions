@@ -87,6 +87,22 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                            @foreach(\App\Models\Lots::STAUTUSES as $status)
+                                <option value="{{ $status }}" {{ $status === $lot->status ? 'selected' : '' }}>{{ $status }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Aviability</label>
+                        <select name="status" id="status" class="form-control">
+                            @foreach(\App\Models\Lots::BUY_STAUTSES as $status)
+                                <option value="{{ $status }}" {{ $status === $lot->buy_status ? 'selected' : '' }}>{{ $status }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="mt-4">
                         <multi-uploader

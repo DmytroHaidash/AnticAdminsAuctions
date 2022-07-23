@@ -51,6 +51,7 @@ class Lots extends Model implements HasMedia
         'user_id',
         'status',
         'buy_status',
+        'consigner_id',
     ];
 
     public function category(): HasOne
