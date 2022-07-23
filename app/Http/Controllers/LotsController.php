@@ -113,7 +113,7 @@ class LotsController extends Controller
             ->when($search, function (Builder $builder) use ($search) {
                 $builder->where('lots.title', 'like', '%' . $search . '%');
             })
-            ->orderBy('lots.' . $sort, $order)
+            ->orderBy($sort, $order)
             ->leftJoin('categories', 'categories.id', '=', 'lots.category_id')
             ->leftJoin('consigners', 'consigners.id', '=', 'lots.consigner_id')
             ->paginate(20);

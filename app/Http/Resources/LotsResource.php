@@ -26,6 +26,7 @@ class LotsResource extends JsonResource
             'created' => $this->created_at->format('d.m.Y H:i'),
             'edit' =>  route('admin.lots.edit', $this->id),
             'destroy' => route('admin.lots.destroy', $this->id),
+            'consigner' => $this->consigner
         ];
     }
 }
