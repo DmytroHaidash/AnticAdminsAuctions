@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Spatie\MediaLibrary\Models\Media;
 
@@ -104,12 +105,17 @@ class LotsController extends Controller
         $sort = $request->get('sort');
         $order = $request->get('order');
         $lots = Lots::query()
-            ->select('lots.*', 'categories.title as category')
+            ->select([
+                'lots.*',
+                'categories.title as category',
+                DB::raw('CONCAT(consigners.name, " " ,consigners.surname) as consigner')
+                ])
             ->when($search, function (Builder $builder) use ($search) {
                 $builder->where('lots.title', 'like', '%' . $search . '%');
             })
             ->orderBy('lots.' . $sort, $order)
             ->leftJoin('categories', 'categories.id', '=', 'lots.category_id')
+            ->leftJoin('consigners', 'consigners.id', '=', 'lots.consigner_id')
             ->paginate(20);
 
         return response()->json(new LotsPaginatedResource($lots));
