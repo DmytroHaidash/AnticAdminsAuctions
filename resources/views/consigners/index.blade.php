@@ -9,6 +9,15 @@
                 Create consigner
             </a>
         </div>
+        <form class="row mb-4">
+            <div class="col pr-0">
+                <input type="search" name="search" class="form-control" placeholder="search">
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary">Find</button>
+            </div>
+        </form>
 
         <table class="table">
             <thead class="small">
@@ -24,6 +33,9 @@
                 <th>Phone</th>
                 <th>Comission</th>
                 <th>Created</th>
+                @if(Auth::user()->hasRole('admin'))
+                    <th>Created by User</th>
+                @endif
                 <th></th>
             </tr>
             </thead>
@@ -41,6 +53,9 @@
                     <td>{{ $consigner->phone }}</td>
                     <td>{{ $consigner->comission }}</td>
                     <td class="nobr">{{ $consigner->created_at->format('d.m.Y H:i') }}</td>
+                    @if(Auth::user()->hasRole('admin'))
+                        <td>{{ $consigner->user->name }} {{$consigner->user->surname}}</td>
+                    @endif
                     <td width="80" class="nobr">
                         <a href="{{ route('admin.consigners.edit', $consigner) }}"
                            class="btn btn-warning btn-squire rounded-circle">

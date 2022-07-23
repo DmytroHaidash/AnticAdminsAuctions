@@ -19,6 +19,9 @@ class CategoriesController extends Controller
             ->when($search, function (Builder $builder) use ($search) {
                 $builder->where('title', 'like', '%' . $search . '%');
             })
+            ->when(!Auth::user()->hasRole('admin'), function (Builder $builder) {
+                $builder->where('user_id', Auth::user()->id);
+            })
             ->paginate(20);
         return view('categories.index', compact('categories', 'search'));
     }

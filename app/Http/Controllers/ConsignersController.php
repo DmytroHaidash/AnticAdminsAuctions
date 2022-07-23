@@ -10,10 +10,16 @@ use Illuminate\View\View;
 
 class ConsignersController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = $request->get('search') ?? '';
         $consigners = Consigner::query()
-            ->where('user_id', Auth::user()->id)
+            ->when($search, function (Builder $builder) use ($search) {
+                $builder->where('title', 'like', '%' . $search . '%');
+            })
+            ->when(!Auth::user()->hasRole('admin'), function (Builder $builder) {
+                $builder->where('user_id', Auth::user()->id);
+            })
             ->paginate();
         return view('consigners.index', compact('consigners'));
     }

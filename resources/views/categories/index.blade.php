@@ -23,6 +23,9 @@
             <tr>
                 <th>#</th>
                 <th>Title</th>
+                @if(Auth::user()->hasRole('admin'))
+                    <th>User</th>
+                @endif
                 <th>Created</th>
                 <th></th>
             </tr>
@@ -32,6 +35,9 @@
                 <tr>
                     <td width="20">{{ $category->id }}</td>
                     <td>{{ $category->title }}</td>
+                    @if(Auth::user()->hasRole('admin'))
+                        <td>{{ $category->user->name }} {{$category->user->surname}}</td>
+                    @endif
                     <td class="nobr">{{ $category->created_at->format('d.m.Y H:i') }}</td>
                     <td width="80" class="nobr">
                         <a href="{{ route('admin.categories.edit', $category) }}"
